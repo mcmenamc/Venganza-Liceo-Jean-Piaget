@@ -1,10 +1,31 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+    <v-navigation-drawer app permanent>
+      <!-- ponle un if para que solo se vea si esta logueado para las herramientas laterales y descomentar -->
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="text-h6"> Application </v-list-item-title>
+          <v-list-item-subtitle> subtext </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list dense nav>
+        <v-list-item v-for="item in items" :key="item.title" link>
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <!---Header -->
+    <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -38,18 +59,33 @@
     </v-app-bar>
 
     <v-main>
-      <router-view/>
+      <v-container fluid>
+        <!-- Se modifica las vistas   -->
+        <router-view></router-view>
+        
+      </v-container>
     </v-main>
+    <v-footer  color="light-blue lighten-5">
+      <!-- fotter -->
+      <v-col class="text-center" cols="12">
+        {{ new Date().getFullYear() }} — <strong>Liceo Jean Piaget</strong>
+      </v-col>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
+  name: "App",
 
   data: () => ({
     //
+    items: [
+      { title: "Dashboard", icon: "mdi-view-dashboard" },
+      { title: "Photos", icon: "mdi-image" },
+      { title: "About", icon: "mdi-help-box" },
+    ],
+    right: null,
   }),
 };
 </script>
